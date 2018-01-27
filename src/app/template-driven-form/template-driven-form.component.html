@@ -1,0 +1,51 @@
+<h2>Template Driven Form</h2>
+
+<form #form="ngForm" (ngSubmit)="EnviarFormulariio(form)">
+  <div class="container">
+    <div class="row">
+      <div class="form-group col-sm-10">
+        <label for="nombre">Nombre Completo</label>
+        <input
+        type="input"
+        class="form-control"
+        name="nombreCompleto"
+        [ngModel]="formularioUsuario.nombreCompleto"
+        placeholder="Nombre Completo"
+        required>
+      </div>
+      <div ngModelGroup="contacto" class="container">
+        <div class="row">
+          <div class="form-group has-error col-sm-10">
+            <label for="correo">Correo</label>
+            <input
+              type="email" 
+              #email="ngModel" 
+              class="form-control"
+              name="correo"
+              minlength="2"
+              required 
+              [ngModel]="formularioUsuario.contacto.correo" 
+              placeholder="ejemplo@correo.com"
+              [ngClass]="{'is-invalid': email.invalid && email.dirty}">
+            <div class="invalid-feedback" *ngIf="email.invalid">
+              Formato no valido
+            </div>
+          </div>
+          <div class="form-group col-sm-10">
+            <label for="telefono">Telefono</label>
+            <input type="input" class="form-control" name="telefono" [ngModel]="formularioUsuario.contacto.telefono">
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-sm-10">
+        <div class="form-check">
+          <input class="form-check-input" name="terminosAceptados" type="checkbox" id="defaultCheck1" [ngModel]="formularioUsuario.terminosAceptados">
+          <label class="form-check-label" for="defaultCheck1">
+            Acepto condiciones
+          </label>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-default" [disabled]="form.invalid">Submit</button>
+  </div>
+</form>

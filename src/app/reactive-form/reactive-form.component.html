@@ -1,0 +1,42 @@
+<h2>Reactive Form</h2>
+<form [formGroup]="formularioUsuario" (ngSubmit)="submitForm()">
+  <div class="container">
+    <div class="row">
+      <div class="form-group col-sm-10">
+        <label for="nombre">Nombre Completo</label>
+        <input
+        type="input"
+        class="form-control"
+        name="nombreCompleto"
+        formControlName="nombreCompleto"
+        placeholder="Nombre Completo">
+      </div>
+      <div [formGroup]="formularioUsuario.get('contacto')" class="container">
+        <div class="row">
+            <div class="form-group has-error col-sm-10">
+                <label for="correo">Correo</label>
+                <input type="email" class="form-control" name="correo" formControlName="correo" placeholder="ejemplo@correo.com" 
+                  [ngClass]="{'is-invalid': correoControl && correoControl.hasError('email') && correoControl.touched}">
+                <div class="invalid-feedback" *ngIf="correoControl && correoControl.hasError('email') && correoControl.touched">
+                  Formato no valido
+                </div>
+              </div>
+              <div class="form-group col-sm-10">
+                <label for="telefono">Telefono</label>
+                <input type="input" class="form-control" name="telefono" formControlName="telefono">
+              </div>
+        </div>
+      </div>
+      <div class="form-group col-sm-10">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" formControlName="terminosAceptados">
+            <label class="form-check-label" for="defaultCheck1">
+              Acepto condiciones
+            </label>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-default" [disabled]="formularioUsuario.invalid">Submit</button>
+  </div>
+</form> 
+
